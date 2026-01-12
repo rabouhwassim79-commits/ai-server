@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI Image Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .box {
+      width: 90%;
+      max-width: 500px;
+      background: #1e1e1e;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 5px;
+      border: none;
+    }
+    button {
+      background: #4caf50;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    img {
+      width: 100%;
+      margin-top: 15px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="box">
+    <h2>🎨 توليد صورة بالذكاء الاصطناعي</h2>
+
+    <input
+      id="prompt"
+      type="text"
+      placeholder="اكتب وصف الصورة هنا..."
+    />
+
+    <button onclick="generateImage()">إنشاء الصورة</button>
+
+    <img id="result" />
+  </div>
+
+  <script>
+    async function generateImage() {
+      const prompt = document.getElementById("prompt").value;
+      const img = document.getElementById("result");
+
+      img.src = "";
+      img.alt = "جاري التحميل...";
+
+      const response = await fetch("/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ prompt })
+      });
+
+      const data = await response.json();
+
+      img.src = data.image;
+    }
+  </script>
+
+</body>
+  </html>
