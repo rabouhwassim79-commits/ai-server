@@ -5,7 +5,7 @@ const app = express();
 app.use(express.json());
 
 // 🔑 حط مفتاح OpenAI هنا
-const OPENAI_API_KEY = "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";
+const OPENAI_API_KEY = ;""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
 
 app.post("/generate-image", async (req, res) => {
   try {
